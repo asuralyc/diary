@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日記列表 - 我的日記</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <a href="index.html" class="back-btn">←</a>
+            <h1>我的日記</h1>
+            <button id="searchBtn" class="search-btn">🔍</button>
+        </header>
+
+        <!-- 搜尋欄 -->
+        <div class="search-bar" id="searchBar" style="display: none;">
+            <input type="text" id="searchInput" placeholder="搜尋日記內容、標題或標籤...">
+            <button id="clearSearch">✕</button>
+        </div>
+
+        <!-- 篩選選項 -->
+        <div class="filter-section">
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">全部</button>
+                <button class="filter-tab" data-filter="this-month">本月</button>
+                <button class="filter-tab" data-filter="this-year">今年</button>
+            </div>
+            <select id="moodFilter" class="mood-filter">
+                <option value="">所有心情</option>
+                <option value="very-sad">😢 很難過</option>
+                <option value="sad">😔 難過</option>
+                <option value="neutral">😐 普通</option>
+                <option value="happy">😊 開心</option>
+                <option value="very-happy">😆 很開心</option>
+                <option value="love">🥰 超開心</option>
+            </select>
+        </div>
+
+        <main class="main-content">
+            <!-- 日記列表 -->
+            <div class="diary-entries" id="diaryEntries">
+                <!-- 動態載入日記列表 -->
+            </div>
+
+            <!-- 空狀態 -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="empty-icon">📝</div>
+                <h3>還沒有日記</h3>
+                <p>開始寫下你的第一篇日記吧！</p>
+                <a href="write.html" class="btn-primary">寫日記</a>
+            </div>
+
+            <!-- 無搜尋結果 -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <div class="empty-icon">🔍</div>
+                <h3>沒有找到相關日記</h3>
+                <p>試試其他關鍵字或篩選條件</p>
+            </div>
+        </main>
+
+        <!-- 浮動新增按鈕 -->
+        <a href="write.html" class="fab">
+            <span>+</span>
+        </a>
+
+        <!-- 底部導航 -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <span>首頁</span>
+            </a>
+            <a href="diary-list.html" class="nav-item active">
+                <div class="nav-icon">📝</div>
+                <span>日記</span>
+            </a>
+            <a href="calendar.html" class="nav-item">
+                <div class="nav-icon">📅</div>
+                <span>日曆</span>
+            </a>
+            <a href="settings.html" class="nav-item">
+                <div class="nav-icon">⚙️</div>
+                <span>設定</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDiaryListPage();
+        });
+    </script>
+</body>
+</html>

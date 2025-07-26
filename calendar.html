@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日曆 - 我的日記</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <a href="index.html" class="back-btn">←</a>
+            <div class="calendar-nav">
+                <button id="prevMonth" class="nav-btn">‹</button>
+                <h1 id="currentMonth">2024年7月</h1>
+                <button id="nextMonth" class="nav-btn">›</button>
+            </div>
+            <button id="todayBtn" class="today-btn">今日</button>
+        </header>
+
+        <main class="main-content">
+            <!-- 日曆 -->
+            <div class="calendar-container">
+                <!-- 星期標題 -->
+                <div class="calendar-weekdays">
+                    <div class="weekday">日</div>
+                    <div class="weekday">一</div>
+                    <div class="weekday">二</div>
+                    <div class="weekday">三</div>
+                    <div class="weekday">四</div>
+                    <div class="weekday">五</div>
+                    <div class="weekday">六</div>
+                </div>
+
+                <!-- 日期格子 -->
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- 動態生成日期 -->
+                </div>
+            </div>
+
+            <!-- 月度統計 -->
+            <section class="month-stats">
+                <h2>本月統計</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="monthEntries">0</div>
+                        <div class="stat-label">篇日記</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="monthMood">😊</div>
+                        <div class="stat-label">平均心情</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="monthStreak">0</div>
+                        <div class="stat-label">連續天數</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 心情分佈 -->
+            <section class="mood-distribution">
+                <h2>心情分佈</h2>
+                <div class="mood-chart" id="moodChart">
+                    <div class="mood-bar" data-mood="very-happy">
+                        <span class="mood-emoji">😆</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 0%"></div>
+                        </div>
+                        <span class="mood-count">0</span>
+                    </div>
+                    <div class="mood-bar" data-mood="happy">
+                        <span class="mood-emoji">😊</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 0%"></div>
+                        </div>
+                        <span class="mood-count">0</span>
+                    </div>
+                    <div class="mood-bar" data-mood="neutral">
+                        <span class="mood-emoji">😐</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 0%"></div>
+                        </div>
+                        <span class="mood-count">0</span>
+                    </div>
+                    <div class="mood-bar" data-mood="sad">
+                        <span class="mood-emoji">😔</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 0%"></div>
+                        </div>
+                        <span class="mood-count">0</span>
+                    </div>
+                    <div class="mood-bar" data-mood="very-sad">
+                        <span class="mood-emoji">😢</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 0%"></div>
+                        </div>
+                        <span class="mood-count">0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 選中日期的日記 -->
+            <section class="selected-date-entries" id="selectedDateEntries" style="display: none;">
+                <h2 id="selectedDateTitle">選中日期的日記</h2>
+                <div class="date-entries" id="dateEntries">
+                    <!-- 動態載入該日期的日記 -->
+                </div>
+            </section>
+        </main>
+
+        <!-- 底部導航 -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <span>首頁</span>
+            </a>
+            <a href="diary-list.html" class="nav-item">
+                <div class="nav-icon">📝</div>
+                <span>日記</span>
+            </a>
+            <a href="calendar.html" class="nav-item active">
+                <div class="nav-icon">📅</div>
+                <span>日曆</span>
+            </a>
+            <a href="settings.html" class="nav-item">
+                <div class="nav-icon">⚙️</div>
+                <span>設定</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCalendarPage();
+        });
+    </script>
+</body>
+</html>

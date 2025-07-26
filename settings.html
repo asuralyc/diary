@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>設定 - 我的日記</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <a href="index.html" class="back-btn">←</a>
+            <h1>設定</h1>
+            <div></div>
+        </header>
+
+        <main class="main-content">
+            <!-- 個人資料 -->
+            <section class="settings-section">
+                <h2>個人資料</h2>
+                <div class="setting-item">
+                    <div class="setting-icon">👤</div>
+                    <div class="setting-content">
+                        <div class="setting-title">暱稱</div>
+                        <div class="setting-subtitle" id="userNickname">我的日記</div>
+                    </div>
+                    <button class="setting-action" onclick="editNickname()">編輯</button>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-icon">🎨</div>
+                    <div class="setting-content">
+                        <div class="setting-title">頭像</div>
+                        <div class="setting-subtitle">個性化你的頭像</div>
+                    </div>
+                    <button class="setting-action" onclick="changeAvatar()">更換</button>
+                </div>
+            </section>
+
+            <!-- 日記設定 -->
+            <section class="settings-section">
+                <h2>日記設定</h2>
+                <div class="setting-item">
+                    <div class="setting-icon">🔒</div>
+                    <div class="setting-content">
+                        <div class="setting-title">隱私保護</div>
+                        <div class="setting-subtitle">設定密碼保護</div>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="privacyToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-icon">📅</div>
+                    <div class="setting-content">
+                        <div class="setting-title">每日提醒</div>
+                        <div class="setting-subtitle">提醒你寫日記</div>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="reminderToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-icon">⏰</div>
+                    <div class="setting-content">
+                        <div class="setting-title">提醒時間</div>
+                        <div class="setting-subtitle" id="reminderTime">每天 21:00</div>
+                    </div>
+                    <button class="setting-action" onclick="setReminderTime()">設定</button>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-icon">💭</div>
+                    <div class="setting-content">
+                        <div class="setting-title">心情分析</div>
+                        <div class="setting-subtitle">自動分析日記情感</div>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="moodAnalysisToggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- 外觀設定 -->
+            <section class="settings-section">
+                <h2>外觀</h2>
+                <div class="setting-item">
+                    <div class="setting-icon">🌙</div>
+                    <div class="setting-content">
+                        <div class="setting-title">深色模式</div>
+                        <div class="setting-subtitle">保護你的眼睛</div>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-icon">🎨</div>
+                    <div class="setting-content">
+                        <div class="setting-title">主題顏色</div>
+                        <div class="setting-subtitle">選擇你喜歡的顏色</div>
+                    </div>
+                    <div class="theme-colors">
+                        <button class="color-option active" data-theme="default" style="background: #6366f1;"></button>
+                        <button class="color-option" data-theme="green" style="background: #10b981;"></button>
+                        <button class="color-option" data-theme="pink" style="background: #ec4899;"></button>
+                        <button class="color-option" data-theme="orange" style="background: #f59e0b;"></button>
+                        <button class="color-option" data-theme="purple" style="background: #8b5cf6;"></button>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-icon">🔤</div>
+                    <div class="setting-content">
+                        <div class="setting-title">字體大小</div>
+                        <div class="setting-subtitle" id="fontSizeLabel">中等</div>
+                    </div>
+                    <select id="fontSizeSelect" class="setting-select">
+                        <option value="small">小</option>
+                        <option value="medium" selected>中等</option>
+                        <option value="large">大</option>
+                        <option value="extra-large">特大</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- 資料管理 -->
+            <section class="settings-section">
+                <h2>資料管理</h2>
+                <div class="setting-item">
+                    <div class="setting-icon">💾</div>
+                    <div class="setting-content">
+                        <div class="setting-title">備份資料</div>
+                        <div class="setting-subtitle">匯出所有日記</div>
+                    </div>
+                    <button class="setting-action" onclick="exportData()">匯出</button>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-icon">📥</div>
+                    <div class="setting-content">
+                        <div class="setting-title">匯入資料</div>
+                        <div class="setting-subtitle">從備份檔案還原</div>
+                    </div>
+                    <button class="setting-action" onclick="importData()">匯入</button>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-icon">🗑️</div>
+                    <div class="setting-content">
+                        <div class="setting-title">清除所有資料</div>
+                        <div class="setting-subtitle danger">永久刪除所有日記</div>
+                    </div>
+                    <button class="setting-action danger" onclick="clearAllData()">清除</button>
+                </div>
+            </section>
+
+            <!-- 關於 -->
+            <section class="settings-section">
+                <h2>關於</h2>
+                <div class="setting-item">
+                    <div class="setting-icon">ℹ️</div>
+                    <div class="setting-content">
+                        <div class="setting-title">版本資訊</div>
+                        <div class="setting-subtitle">v1.0.0</div>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-icon">📖</div>
+                    <div class="setting-content">
+                        <div class="setting-title">使用說明</div>
+                        <div class="setting-subtitle">了解如何使用</div>
+                    </div>
+                    <button class="setting-action" onclick="showHelp()">查看</button>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-icon">💌</div>
+                    <div class="setting-content">
+                        <div class="setting-title">意見回饋</div>
+                        <div class="setting-subtitle">告訴我們你的想法</div>
+                    </div>
+                    <button class="setting-action" onclick="sendFeedback()">反饋</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- 底部導航 -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <span>首頁</span>
+            </a>
+            <a href="diary-list.html" class="nav-item">
+                <div class="nav-icon">📝</div>
+                <span>日記</span>
+            </a>
+            <a href="calendar.html" class="nav-item">
+                <div class="nav-icon">📅</div>
+                <span>日曆</span>
+            </a>
+            <a href="settings.html" class="nav-item active">
+                <div class="nav-icon">⚙️</div>
+                <span>設定</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSettingsPage();
+        });
+    </script>
+</body>
+</html>

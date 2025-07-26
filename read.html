@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>閱讀日記 - 我的日記</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <a href="javascript:history.back()" class="back-btn">←</a>
+            <h1>日記</h1>
+            <div class="header-actions">
+                <button id="editBtn" class="action-btn">編輯</button>
+                <button id="deleteBtn" class="action-btn danger">刪除</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <article class="diary-entry" id="diaryEntry">
+                <!-- 日記頭部信息 -->
+                <header class="entry-header">
+                    <div class="entry-date" id="entryDate">2024年7月26日 星期五</div>
+                    <div class="entry-mood">
+                        <span class="mood-emoji" id="entryMoodEmoji">😊</span>
+                        <span class="mood-text" id="entryMoodText">開心</span>
+                    </div>
+                    <div class="entry-weather" id="entryWeather" style="display: none;">
+                        <span class="weather-emoji">☀️</span>
+                    </div>
+                </header>
+
+                <!-- 日記標題 -->
+                <h2 class="entry-title" id="entryTitle"></h2>
+
+                <!-- 日記內容 -->
+                <div class="entry-content" id="entryContent">
+                    <!-- 動態載入日記內容 -->
+                </div>
+
+                <!-- 日記標籤 -->
+                <div class="entry-tags" id="entryTags" style="display: none;">
+                    <!-- 動態載入標籤 -->
+                </div>
+
+                <!-- 日記元數據 -->
+                <footer class="entry-footer">
+                    <div class="entry-meta">
+                        <span id="entryWordCount">0 字</span>
+                        <span id="entryCreatedTime">建立於 2024-07-26 20:30</span>
+                        <span id="entryModifiedTime" style="display: none;"></span>
+                    </div>
+                </footer>
+            </article>
+
+            <!-- 心情分析 (選填功能) -->
+            <section class="mood-analysis" id="moodAnalysis" style="display: none;">
+                <h3>情感分析</h3>
+                <div class="analysis-content">
+                    <div class="sentiment-score">
+                        <span class="sentiment-label">正面情緒</span>
+                        <div class="sentiment-bar">
+                            <div class="sentiment-fill positive" style="width: 75%"></div>
+                        </div>
+                        <span class="sentiment-value">75%</span>
+                    </div>
+                    <div class="keywords" id="analysisKeywords">
+                        <!-- 動態載入關鍵詞 -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- 相關日記推薦 -->
+            <section class="related-entries" id="relatedEntries" style="display: none;">
+                <h3>相關日記</h3>
+                <div class="related-list">
+                    <!-- 動態載入相關日記 -->
+                </div>
+            </section>
+        </main>
+
+        <!-- 底部操作按鈕 -->
+        <div class="bottom-actions">
+            <button id="shareBtn" class="btn-secondary">分享</button>
+            <button id="favoriteBtn" class="btn-secondary">收藏</button>
+            <a href="#" id="editLink" class="btn-primary">編輯日記</a>
+        </div>
+
+        <!-- 刪除確認對話框 -->
+        <div class="modal" id="deleteModal" style="display: none;">
+            <div class="modal-content">
+                <h3>確認刪除</h3>
+                <p>確定要刪除這篇日記嗎？此操作無法復原。</p>
+                <div class="modal-actions">
+                    <button id="cancelDelete" class="btn-secondary">取消</button>
+                    <button id="confirmDelete" class="btn-danger">刪除</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 分享選項 -->
+        <div class="modal" id="shareModal" style="display: none;">
+            <div class="modal-content">
+                <h3>分享日記</h3>
+                <div class="share-options">
+                    <button class="share-option" data-type="text">
+                        <span>📄</span>
+                        <span>純文字</span>
+                    </button>
+                    <button class="share-option" data-type="image">
+                        <span>🖼️</span>
+                        <span>圖片格式</span>
+                    </button>
+                    <button class="share-option" data-type="pdf">
+                        <span>📑</span>
+                        <span>PDF檔案</span>
+                    </button>
+                </div>
+                <button id="closeShareModal" class="btn-secondary">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeReadPage();
+        });
+    </script>
+</body>
+</html>

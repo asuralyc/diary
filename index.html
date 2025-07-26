@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的日記 - 主頁</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1>我的日記</h1>
+            <div class="user-avatar"></div>
+        </header>
+
+        <main class="main-content">
+            <!-- 今日心情 -->
+            <section class="mood-section">
+                <h2>今日心情</h2>
+                <div class="mood-display" id="todayMood">
+                    <div class="mood-emoji">😊</div>
+                    <div class="mood-text">開心</div>
+                </div>
+            </section>
+
+            <!-- 快速統計 -->
+            <section class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalEntries">0</div>
+                    <div class="stat-label">總日記數</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="thisMonthEntries">0</div>
+                    <div class="stat-label">本月日記</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="streakDays">0</div>
+                    <div class="stat-label">連續天數</div>
+                </div>
+            </section>
+
+            <!-- 最近的日記 -->
+            <section class="recent-section">
+                <div class="section-header">
+                    <h2>最近的日記</h2>
+                    <a href="diary-list.html" class="view-all">查看全部</a>
+                </div>
+                <div class="recent-entries" id="recentEntries">
+                    <!-- 動態載入最近的日記 -->
+                </div>
+            </section>
+        </main>
+
+        <!-- 浮動新增按鈕 -->
+        <a href="write.html" class="fab">
+            <span>+</span>
+        </a>
+
+        <!-- 底部導航 -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-item active">
+                <div class="nav-icon">🏠</div>
+                <span>首頁</span>
+            </a>
+            <a href="diary-list.html" class="nav-item">
+                <div class="nav-icon">📝</div>
+                <span>日記</span>
+            </a>
+            <a href="calendar.html" class="nav-item">
+                <div class="nav-icon">📅</div>
+                <span>日曆</span>
+            </a>
+            <a href="settings.html" class="nav-item">
+                <div class="nav-icon">⚙️</div>
+                <span>設定</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // 初始化首頁
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRecentEntries();
+            updateStats();
+            loadTodayMood();
+        });
+    </script>
+</body>
+</html>

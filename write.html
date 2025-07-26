@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寫日記 - 我的日記</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <a href="index.html" class="back-btn">←</a>
+            <h1>新日記</h1>
+            <button id="saveBtn" class="save-btn">儲存</button>
+        </header>
+
+        <main class="main-content">
+            <form id="diaryForm" class="diary-form">
+                <!-- 日期選擇 -->
+                <div class="form-group">
+                    <label for="entryDate">日期</label>
+                    <input type="date" id="entryDate" name="date" required>
+                </div>
+
+                <!-- 心情選擇 -->
+                <div class="form-group">
+                    <label>今日心情</label>
+                    <div class="mood-selector">
+                        <button type="button" class="mood-btn" data-mood="very-sad" data-emoji="😢">😢</button>
+                        <button type="button" class="mood-btn" data-mood="sad" data-emoji="😔">😔</button>
+                        <button type="button" class="mood-btn" data-mood="neutral" data-emoji="😐">😐</button>
+                        <button type="button" class="mood-btn selected" data-mood="happy" data-emoji="😊">😊</button>
+                        <button type="button" class="mood-btn" data-mood="very-happy" data-emoji="😆">😆</button>
+                        <button type="button" class="mood-btn" data-mood="love" data-emoji="🥰">🥰</button>
+                    </div>
+                    <input type="hidden" id="selectedMood" name="mood" value="happy">
+                    <input type="hidden" id="selectedEmoji" name="emoji" value="😊">
+                </div>
+
+                <!-- 標題 -->
+                <div class="form-group">
+                    <label for="entryTitle">標題 (選填)</label>
+                    <input type="text" id="entryTitle" name="title" placeholder="為這篇日記取個標題...">
+                </div>
+
+                <!-- 內容 -->
+                <div class="form-group">
+                    <label for="entryContent">內容</label>
+                    <textarea id="entryContent" name="content" placeholder="今天發生了什麼事情？你的感想是..."></textarea>
+                </div>
+
+                <!-- 天氣 (選填) -->
+                <div class="form-group">
+                    <label>天氣 (選填)</label>
+                    <div class="weather-selector">
+                        <button type="button" class="weather-btn" data-weather="sunny">☀️</button>
+                        <button type="button" class="weather-btn" data-weather="cloudy">☁️</button>
+                        <button type="button" class="weather-btn" data-weather="rainy">🌧️</button>
+                        <button type="button" class="weather-btn" data-weather="snowy">❄️</button>
+                        <button type="button" class="weather-btn" data-weather="stormy">⛈️</button>
+                    </div>
+                    <input type="hidden" id="selectedWeather" name="weather" value="">
+                </div>
+
+                <!-- 標籤 -->
+                <div class="form-group">
+                    <label for="entryTags">標籤 (選填)</label>
+                    <input type="text" id="entryTags" name="tags" placeholder="用逗號分隔標籤，例如：工作,家庭,旅行">
+                </div>
+            </form>
+        </main>
+
+        <!-- 底部操作按鈕 -->
+        <div class="bottom-actions">
+            <button type="button" class="btn-secondary" onclick="window.history.back()">取消</button>
+            <button type="submit" form="diaryForm" class="btn-primary">儲存日記</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeWritePage();
+        });
+    </script>
+</body>
+</html>
