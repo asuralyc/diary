@@ -23,7 +23,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		01234567890123456789012345678927 /* MyDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01234567890123456789012345678902 /* MyDiaryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDiaryApp.swift; sourceTree = "<group>"; };
 		01234567890123456789012345678904 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		01234567890123456789012345678906 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -37,6 +36,7 @@
 		01234567890123456789012345678922 /* DiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailView.swift; sourceTree = "<group>"; };
 		01234567890123456789012345678924 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		01234567890123456789012345678926 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		01234567890123456789012345678927 /* MyDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,14 +58,6 @@
 			);
 			sourceTree = "<group>";
 		};
-		01234567890123456789012345678931 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				01234567890123456789012345678927 /* MyDiary.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		01234567890123456789012345678930 /* MyDiary */ = {
 			isa = PBXGroup;
 			children = (
@@ -79,12 +71,12 @@
 			path = MyDiary;
 			sourceTree = "<group>";
 		};
-		01234567890123456789012345678934 /* Preview Content */ = {
+		01234567890123456789012345678931 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				01234567890123456789012345678908 /* Preview Assets.xcassets */,
+				01234567890123456789012345678927 /* MyDiary.app */,
 			);
-			path = "Preview Content";
+			name = Products;
 			sourceTree = "<group>";
 		};
 		01234567890123456789012345678932 /* Models */ = {
@@ -108,6 +100,14 @@
 				01234567890123456789012345678924 /* SettingsView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		01234567890123456789012345678934 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				01234567890123456789012345678908 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -340,7 +340,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mydiary.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sapp.diary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -374,7 +374,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mydiary.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sapp.diary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -388,20 +388,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		01234567890123456789012345678940 /* Build configuration list for PBXProject "MyDiary" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				01234567890123456789012345678941 /* Debug */,
-				01234567890123456789012345678942 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		01234567890123456789012345678936 /* Build configuration list for PBXNativeTarget "MyDiary" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01234567890123456789012345678943 /* Debug */,
 				01234567890123456789012345678944 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		01234567890123456789012345678940 /* Build configuration list for PBXProject "MyDiary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01234567890123456789012345678941 /* Debug */,
+				01234567890123456789012345678942 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

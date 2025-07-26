@@ -359,11 +359,11 @@ struct ExportView: View {
                 }
             }
         }
-        .sheet(isPresented: $showingShareSheet) {
-            if let exportData = exportData {
-                ShareSheet(data: exportData)
-            }
-        }
+                                .sheet(isPresented: $showingShareSheet) {
+                            if let exportData = exportData {
+                                DataShareSheet(data: exportData)
+                            }
+                        }
     }
     
     private func exportToJSON() {
@@ -413,7 +413,7 @@ struct ExportView: View {
     }
 }
 
-struct ShareSheet: UIViewControllerRepresentable {
+struct DataShareSheet: UIViewControllerRepresentable {
     let data: Data
     
     func makeUIViewController(context: Context) -> UIActivityViewController {

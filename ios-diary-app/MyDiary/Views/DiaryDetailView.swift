@@ -263,7 +263,11 @@ struct FlowLayout: Layout {
         )
         
         for (index, subview) in subviews.enumerated() {
-            subview.place(at: result.frames[index].origin + bounds.origin, proposal: .unspecified)
+            let origin = CGPoint(
+                x: result.frames[index].origin.x + bounds.origin.x,
+                y: result.frames[index].origin.y + bounds.origin.y
+            )
+            subview.place(at: origin, proposal: .unspecified)
         }
     }
 }
