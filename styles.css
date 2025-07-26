@@ -407,6 +407,190 @@ select {
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+/* 日期輸入框包裝器 */
+.date-input-wrapper {
+    position: relative;
+}
+
+.date-input-wrapper input[type="date"] {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.date-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--background);
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 48px;
+    font-size: var(--font-size-base);
+}
+
+.date-display:hover {
+    border-color: var(--primary-color);
+    background: var(--background-secondary);
+}
+
+.date-display:active {
+    transform: scale(0.98);
+}
+
+.date-text {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.date-icon {
+    font-size: 20px;
+    color: var(--primary-color);
+}
+
+/* 當日期輸入框獲得焦點時的樣式 */
+.date-input-wrapper input[type="date"]:focus + .date-display {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* 自定義日曆選擇器 */
+.custom-date-picker {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--background);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    width: 90%;
+    max-width: 380px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.date-picker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.date-nav-btn {
+    background: var(--background-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.date-nav-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.date-picker-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.weekday-label {
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    font-weight: 600;
+    padding: 8px 0;
+}
+
+.date-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.date-picker-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-base);
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 44px;
+    border: 1px solid transparent;
+    font-weight: 500;
+}
+
+.date-picker-day:hover {
+    background: var(--background-secondary);
+    border-color: var(--border-color);
+}
+
+.date-picker-day.today {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+
+.date-picker-day.selected {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    font-weight: 600;
+}
+
+.date-picker-day.other-month {
+    opacity: 0.3;
+}
+
+.date-picker-day.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.date-picker-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.date-picker-actions .btn-secondary,
+.date-picker-actions .btn-primary {
+    flex: 1;
+    padding: 12px;
+}
+
+/* 日曆選擇器背景遮罩 */
+.date-picker-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
 input[type="text"]:focus,
 input[type="date"]:focus,
 textarea:focus,

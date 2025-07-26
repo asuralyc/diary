@@ -249,7 +249,16 @@ function loadTodayMood() {
 // 寫日記頁面功能
 function initializeWritePage() {
     const today = new Date().toISOString().split('T')[0];
-    document.getElementById('entryDate').value = today;
+    const dateInput = document.getElementById('entryDate');
+    dateInput.value = today;
+    
+    // 更新日期顯示
+    updateDateDisplay(today);
+
+    // 日期輸入變更監聽
+    dateInput.addEventListener('change', function() {
+        updateDateDisplay(this.value);
+    });
 
     // 心情選擇
     document.querySelectorAll('.mood-btn').forEach(btn => {
@@ -1104,6 +1113,163 @@ document.addEventListener('click', function(e) {
         e.target.style.display = 'none';
     }
 });
+
+// 日期處理函數
+let selectedDate = null;
+let pickerCurrentDate = new Date();
+
+function updateDateDisplay(dateString) {
+    const dateDisplay = document.getElementById('dateText');
+    if (!dateDisplay || !dateString) return;
+
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString('zh-TW', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long'
+    });
+    
+    dateDisplay.textContent = formattedDate;
+}
+
+function openDatePicker() {
+    const dateInput = document.getElementById('entryDate');
+    if (dateInput) {
+        dateInput.focus();
+        dateInput.click();
+    }
+}
+
+// 自定義日曆選擇器功能
+function openCustomDatePicker() {
+    const datePicker = document.getElementById('customDatePicker');
+    if (!datePicker) return;
+
+    // 創建背景遮罩
+    const overlay = document.createElement('div');
+    overlay.className = 'date-picker-overlay';
+    overlay.onclick = closeDatePicker;
+    document.body.appendChild(overlay);
+
+    // 初始化當前選中的日期
+    const currentValue = document.getElementById('entryDate').value;
+    if (currentValue) {
+        selectedDate = new Date(currentValue);
+        pickerCurrentDate = new Date(selectedDate);
+    } else {
+        selectedDate = new Date();
+        pickerCurrentDate = new Date();
+    }
+
+    renderDatePicker();
+    datePicker.style.display = 'block';
+
+    // 設置導航按鈕事件
+    setupDatePickerNavigation();
+}
+
+function closeDatePicker() {
+    const datePicker = document.getElementById('customDatePicker');
+    const overlay = document.querySelector('.date-picker-overlay');
+    
+    if (datePicker) datePicker.style.display = 'none';
+    if (overlay) overlay.remove();
+}
+
+function renderDatePicker() {
+    const grid = document.getElementById('datePickerGrid');
+    const monthYearElement = document.getElementById('currentMonthYear');
+    
+    if (!grid || !monthYearElement) return;
+
+    const year = pickerCurrentDate.getFullYear();
+    const month = pickerCurrentDate.getMonth();
+
+    // 更新月份年份顯示
+    monthYearElement.textContent = `${year}年${month + 1}月`;
+
+    // 計算日曆網格
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const startDate = new Date(firstDay);
+    startDate.setDate(startDate.getDate() - firstDay.getDay());
+
+    const days = [];
+    const current = new Date(startDate);
+    
+    for (let i = 0; i < 42; i++) {
+        days.push(new Date(current));
+        current.setDate(current.getDate() + 1);
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    grid.innerHTML = days.map(day => {
+        const isCurrentMonth = day.getMonth() === month;
+        const isToday = day.getTime() === today.getTime();
+        const isSelected = selectedDate && day.getTime() === selectedDate.getTime();
+
+        let classes = ['date-picker-day'];
+        if (isToday) classes.push('today');
+        if (isSelected) classes.push('selected');
+        if (!isCurrentMonth) classes.push('other-month');
+
+        return `
+            <div class="${classes.join(' ')}" 
+                 data-date="${formatDate(day)}"
+                 onclick="selectDateInPicker('${formatDate(day)}')">
+                ${day.getDate()}
+            </div>
+        `;
+    }).join('');
+}
+
+function selectDateInPicker(dateString) {
+    selectedDate = new Date(dateString);
+    
+    // 更新選中狀態
+    document.querySelectorAll('.date-picker-day').forEach(day => {
+        day.classList.remove('selected');
+    });
+    
+    const selectedElement = document.querySelector(`[data-date="${dateString}"]`);
+    if (selectedElement) {
+        selectedElement.classList.add('selected');
+    }
+}
+
+function confirmDateSelection() {
+    if (selectedDate) {
+        const dateInput = document.getElementById('entryDate');
+        const dateString = formatDate(selectedDate);
+        
+        dateInput.value = dateString;
+        updateDateDisplay(dateString);
+    }
+    
+    closeDatePicker();
+}
+
+function setupDatePickerNavigation() {
+    const prevBtn = document.getElementById('prevMonthBtn');
+    const nextBtn = document.getElementById('nextMonthBtn');
+
+    if (prevBtn) {
+        prevBtn.onclick = function() {
+            pickerCurrentDate.setMonth(pickerCurrentDate.getMonth() - 1);
+            renderDatePicker();
+        };
+    }
+
+    if (nextBtn) {
+        nextBtn.onclick = function() {
+            pickerCurrentDate.setMonth(pickerCurrentDate.getMonth() + 1);
+            renderDatePicker();
+        };
+    }
+}
 
 // 鍵盤快捷鍵
 document.addEventListener('keydown', function(e) {

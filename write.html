@@ -19,7 +19,38 @@
                 <!-- 日期選擇 -->
                 <div class="form-group">
                     <label for="entryDate">日期</label>
-                    <input type="date" id="entryDate" name="date" required>
+                    <div class="date-input-wrapper">
+                        <input type="date" id="entryDate" name="date" required style="display: none;">
+                        <div class="date-display" id="dateDisplay" onclick="openCustomDatePicker()">
+                            <span class="date-text" id="dateText">選擇日期</span>
+                            <span class="date-icon">📅</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 自定義日曆選擇器 -->
+                <div class="custom-date-picker" id="customDatePicker" style="display: none;">
+                    <div class="date-picker-header">
+                        <button type="button" class="date-nav-btn" id="prevMonthBtn">‹</button>
+                        <h3 id="currentMonthYear">2025年7月</h3>
+                        <button type="button" class="date-nav-btn" id="nextMonthBtn">›</button>
+                    </div>
+                    <div class="date-picker-weekdays">
+                        <div class="weekday-label">日</div>
+                        <div class="weekday-label">一</div>
+                        <div class="weekday-label">二</div>
+                        <div class="weekday-label">三</div>
+                        <div class="weekday-label">四</div>
+                        <div class="weekday-label">五</div>
+                        <div class="weekday-label">六</div>
+                    </div>
+                    <div class="date-picker-grid" id="datePickerGrid">
+                        <!-- 動態生成日期 -->
+                    </div>
+                    <div class="date-picker-actions">
+                        <button type="button" class="btn-secondary" onclick="closeDatePicker()">取消</button>
+                        <button type="button" class="btn-primary" onclick="confirmDateSelection()">確定</button>
+                    </div>
                 </div>
 
                 <!-- 心情選擇 -->
