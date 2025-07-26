@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日記 App - Mockups</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .mockup-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        .phone-mockup {
+            width: 320px;
+            height: 640px;
+            background: #000;
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        .status-bar {
+            height: 30px;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .header {
+            background: #6366f1;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .content {
+            padding: 20px;
+            height: calc(100% - 140px);
+            overflow-y: auto;
+        }
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: #fff;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: #6b7280;
+            font-size: 12px;
+        }
+        .nav-item.active {
+            color: #6366f1;
+        }
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            background: currentColor;
+            border-radius: 50%;
+        }
+        .diary-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #6366f1;
+        }
+        .diary-date {
+            color: #6b7280;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+        .diary-preview {
+            color: #374151;
+            line-height: 1.4;
+        }
+        .fab {
+            position: absolute;
+            bottom: 80px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            background: #6366f1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+        .write-area {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 15px;
+            min-height: 200px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .mood-selector {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .mood-item {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .mood-item.selected {
+            background: #6366f1;
+            color: white;
+        }
+        .btn-primary {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 20px;
+        }
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f9fafb;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .calendar-day.has-entry {
+            background: #6366f1;
+            color: white;
+        }
+        .mockup-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #374151;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; color: #374151; margin-bottom: 40px;">日記 App - UI Mockups</h1>
+    
+    <div class="mockup-container">
+        <!-- Home/Dashboard Screen -->
+        <div>
+            <div class="mockup-title">主頁 / 儀表板</div>
+            <div class="phone-mockup">
+                <div class="screen">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span>📶 📶 🔋</span>
+                    </div>
+                    <div class="header">
+                        <h1>我的日記</h1>
+                        <div style="width: 24px; height: 24px; background: rgba(255,255,255,0.3); border-radius: 50%;"></div>
+                    </div>
+                    <div class="content">
+                        <div style="margin-bottom: 20px;">
+                            <h3 style="color: #374151; margin-bottom: 10px;">今日心情</h3>
+                            <div style="background: #f0f9ff; padding: 15px; border-radius: 12px; text-align: center;">
+                                <div style="font-size: 32px; margin-bottom: 5px;">😊</div>
+                                <div style="color: #0369a1; font-weight: 600;">開心</div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 style="color: #374151; margin-bottom: 15px;">最近的日記</h3>
+                            <div class="diary-card">
+                                <div class="diary-date">2024年7月26日 星期五</div>
+                                <div class="diary-preview">今天去了海邊，看到了美麗的夕陽。心情特別放鬆，感覺所有的煩惱都被海浪帶走了...</div>
+                            </div>
+                            <div class="diary-card">
+                                <div class="diary-date">2024年7月25日 星期四</div>
+                                <div class="diary-preview">工作上遇到了一些挑戰，但是透過團隊合作順利解決了。學到了很多新的東西...</div>
+                            </div>
+                            <div class="diary-card">
+                                <div class="diary-date">2024年7月24日 星期三</div>
+                                <div class="diary-preview">和朋友一起看電影，度過了愉快的晚上。友誼真的是人生中最珍貴的財富...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fab">+</div>
+                    <div class="bottom-nav">
+                        <div class="nav-item active">
+                            <div class="nav-icon"></div>
+                            <span>首頁</span>
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon"></div>
+                            <span>日記</span>
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon"></div>
+                            <span>日曆</span>
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon"></div>
+                            <span>設定</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Write Entry Screen -->
+        <div>
+            <div class="mockup-title">寫日記</div>
+            <div class="phone-mockup">
+                <div class="screen">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span>📶 📶 🔋</span>
+                    </div>
+                    <div class="header">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 18px;">←</span>
+                            <span>新日記</span>
+                        </div>
+                        <span style="color: rgba(255,255,255,0.8);">儲存</span>
+                    </div>
+                    <div class="content">
+                        <div style="margin-bottom: 15px;">
+                            <div style="color: #6b7280; font-size: 14px; margin-bottom: 5px;">日期</div>
+                            <div style="color: #374151; font-weight: 600;">2024年7月26日 星期五</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <div style="color: #6b7280; font-size: 14px; margin-bottom: 10px;">今日心情</div>
+                            <div class="mood-selector">
+                                <div class="mood-item">😢</div>
+                                <div class="mood-item">😐</div>
+                                <div class="mood-item selected">😊</div>
+                                <div class="mood-item">😆</div>
+                                <div class="mood-item">🥰</div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style="color: #6b7280; font-size: 14px; margin-bottom: 10px;">內容</div>
+                            <div class="write-area">
+                                今天是美好的一天...<br>
+                                <span style="color: #9ca3af;">|</span>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-primary">儲存日記</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar View -->
+        <div>
+            <div class="mockup-title">日曆檢視</div>
+            <div class="phone-mockup">
+                <div class="screen">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span>📶 📶 🔋</span>
+                    </div>
+                    <div class="header">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <span style="font-size: 18px;">←</span>
+                            <span style="font-size: 18px;">→</span>
+                        </div>
+                        <h1 style="font-size: 18px;">2024年7月</h1>
+                        <div></div>
+                    </div>
+                    <div class="content">
+                        <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 15px;">
+                            <div style="text-align: center; color: #6b7280; font-size: 12px; padding: 5px;">日</div>
+                            <div style="text-align: center; color: #6b7280; font-size: 12px; padding: 5px;">一</div>
+                            <div style="text-align: center; color: #6b7280; font-size: 12px; padding: 5px;">二</div>
+                            <div style="text-align: center; color: #6b7280; font-size: 12px; padding: 5px;">三</div>
+                            <div style="text-align: center; color: #6b7280; font-size: 12px; padding: 5px;">四</div>
+                            <div style="text-align: center; color: #6b7280; font-size: 12px; padding: 5px;">五</div>
+                            <div style="text-align: center; color: #6b7280; font-size: 12px; padding: 5px;">六</div>
+                        </div>
+                        <div class="calendar-grid">
+                            <div class="calendar-day"></div>
+                            <div class="calendar-day">1</div>
+                            <div class="calendar-day">2</div>
+                            <div class="calendar-day has-entry">3</div>
+                            <div class="calendar-day">4</div>
+                            <div class="calendar-day has-entry">5</div>
+                            <div class="calendar-day">6</div>
+                            <div class="calendar-day">7</div>
+                            <div class="calendar-day">8</div>
+                            <div class="calendar-day">9</div>
+                            <div class="calendar-day has-entry">10</div>
+                            <div class="calendar-day">11</div>
+                            <div class="calendar-day">12</div>
+                            <div class="calendar-day">13</div>
+                            <div class="calendar-day">14</div>
+                            <div class="calendar-day has-entry">15</div>
+                            <div class="calendar-day">16</div>
+                            <div class="calendar-day">17</div>
+                            <div class="calendar-day">18</div>
+                            <div class="calendar-day">19</div>
+                            <div class="calendar-day">20</div>
+                            <div class="calendar-day has-entry">21</div>
+                            <div class="calendar-day">22</div>
+                            <div class="calendar-day">23</div>
+                            <div class="calendar-day has-entry">24</div>
+                            <div class="calendar-day has-entry">25</div>
+                            <div class="calendar-day has-entry">26</div>
+                            <div class="calendar-day">27</div>
+                            <div class="calendar-day">28</div>
+                            <div class="calendar-day">29</div>
+                            <div class="calendar-day">30</div>
+                            <div class="calendar-day">31</div>
+                        </div>
+                        
+                        <div style="margin-top: 30px;">
+                            <h3 style="color: #374151; margin-bottom: 15px;">本月統計</h3>
+                            <div style="background: #f9fafb; padding: 15px; border-radius: 12px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <span style="color: #6b7280;">寫了日記</span>
+                                    <span style="color: #374151; font-weight: 600;">8 天</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="color: #6b7280;">平均心情</span>
+                                    <span style="color: #374151; font-weight: 600;">😊 開心</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item">
+                            <div class="nav-icon"></div>
+                            <span>首頁</span>
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon"></div>
+                            <span>日記</span>
+                        </div>
+                        <div class="nav-item active">
+                            <div class="nav-icon"></div>
+                            <span>日曆</span>
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-icon"></div>
+                            <span>設定</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Read Entry Screen -->
+        <div>
+            <div class="mockup-title">閱讀日記</div>
+            <div class="phone-mockup">
+                <div class="screen">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span>📶 📶 🔋</span>
+                    </div>
+                    <div class="header">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 18px;">←</span>
+                            <span>日記</span>
+                        </div>
+                        <span style="color: rgba(255,255,255,0.8);">編輯</span>
+                    </div>
+                    <div class="content">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="color: #6b7280; font-size: 14px;">2024年7月26日</div>
+                            <div style="color: #374151; font-weight: 600; margin: 5px 0;">星期五</div>
+                            <div style="font-size: 32px;">😊</div>
+                            <div style="color: #6366f1; font-weight: 600; margin-top: 5px;">開心</div>
+                        </div>
+                        
+                        <div style="background: #f9fafb; padding: 20px; border-radius: 12px; line-height: 1.8; color: #374151;">
+                            今天去了海邊，看到了美麗的夕陽。心情特別放鬆，感覺所有的煩惱都被海浪帶走了。
+                            <br><br>
+                            海風輕拂著臉龐，溫暖但不燥熱。我坐在沙灘上，看著太陽慢慢沉入海平線，天空被染成了橘紅色。
+                            <br><br>
+                            這種時刻讓我想起了小時候和家人一起度假的美好時光。雖然現在大家都各自忙碌，但這些美好的回憶依然溫暖著我的心。
+                            <br><br>
+                            今天真的是很棒的一天，我要記住這個感覺。
+                        </div>
+                        
+                        <div style="margin-top: 20px; padding: 15px; background: #f0f9ff; border-radius: 12px;">
+                            <div style="color: #0369a1; font-size: 14px; margin-bottom: 5px;">心情分析</div>
+                            <div style="color: #374151;">這篇日記充滿了正面情緒，主要關鍵詞：放鬆、美好、溫暖</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 50px; text-align: center; color: #6b7280;">
+        <p>這些是日記 App 的主要介面設計。包含了主頁、寫日記、日曆檢視和閱讀日記等核心功能。</p>
+    </div>
+</body>
+</html>
