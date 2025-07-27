@@ -1282,6 +1282,22 @@ textarea {
     color: white;
 }
 
+.nickname-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-base);
+    background: var(--background);
+    margin-top: 8px;
+}
+
+.nickname-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
 .setting-select {
     font-size: var(--font-size-sm);
     padding: 6px 8px;

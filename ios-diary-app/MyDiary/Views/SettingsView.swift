@@ -1,4 +1,5 @@
 import SwiftUI
+import UserNotifications
 
 struct SettingsView: View {
     @EnvironmentObject var diaryStore: DiaryStore
@@ -8,6 +9,15 @@ struct SettingsView: View {
     @State private var nickname = "我的日記"
     @State private var reminderEnabled = true
     @State private var reminderTime = Date()
+    @State private var privacyEnabled = false
+    @State private var showingPasswordAlert = false
+    @State private var showingChangePasswordAlert = false
+    @State private var passwordText = ""
+    @State private var confirmPasswordText = ""
+    @State private var currentPasswordText = ""
+    @State private var showingNicknameAlert = false
+    @State private var tempNickname = ""
+    @State private var showingNotificationAlert = false
     
     var body: some View {
         NavigationView {
@@ -22,15 +32,66 @@ struct SettingsView: View {
                         VStack(alignment: .leading) {
                             Text("暱稱")
                                 .font(.headline)
-                            TextField("輸入暱稱", text: $nickname)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            Text(nickname)
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
                         }
+                        
+                        Spacer()
+                        
+                        Button("編輯") {
+                            tempNickname = nickname
+                            showingNicknameAlert = true
+                        }
+                        .foregroundColor(.indigo)
                     }
                     .padding(.vertical, 4)
                 }
                 
                 // Diary Settings
                 Section("日記設定") {
+                    HStack {
+                        Image(systemName: "lock")
+                            .foregroundColor(.red)
+                        
+                        VStack(alignment: .leading) {
+                            Text("隱私保護")
+                            Text("設定密碼保護")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        
+                        Spacer()
+                        
+                        Toggle("", isOn: $privacyEnabled)
+                    }
+                    .padding(.vertical, 4)
+                    
+                    if UserDefaults.standard.string(forKey: "appPassword") != nil {
+                        Button {
+                            showingChangePasswordAlert = true
+                        } label: {
+                            HStack {
+                                Image(systemName: "key")
+                                    .foregroundColor(.orange)
+                                
+                                VStack(alignment: .leading) {
+                                    Text("更改密碼")
+                                        .foregroundColor(.primary)
+                                    Text("修改現有密碼")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .padding(.vertical, 4)
+                    }
                     HStack {
                         Image(systemName: "bell")
                             .foregroundColor(.orange)
@@ -194,27 +255,6 @@ struct SettingsView: View {
                     }
                     .padding(.vertical, 4)
                     
-                    Link(destination: URL(string: "https://github.com")!) {
-                        HStack {
-                            Image(systemName: "heart")
-                                .foregroundColor(.pink)
-                            
-                            VStack(alignment: .leading) {
-                                Text("意見回饋")
-                                    .foregroundColor(.primary)
-                                Text("告訴我們你的想法")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                            
-                            Spacer()
-                            
-                            Image(systemName: "arrow.up.right")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .padding(.vertical, 4)
                 }
             }
             .navigationTitle("設定")
@@ -236,6 +276,78 @@ struct SettingsView: View {
             }
         } message: {
             Text("這將永久刪除所有日記和設定，確定要繼續嗎？")
+        }
+        .alert("編輯暱稱", isPresented: $showingNicknameAlert) {
+            TextField("暱稱", text: $tempNickname)
+            Button("取消", role: .cancel) {}
+            Button("儲存") {
+                saveNickname()
+            }
+        } message: {
+            Text("請輸入新的暱稱")
+        }
+        .alert("設定密碼", isPresented: $showingPasswordAlert) {
+            SecureField("密碼", text: $passwordText)
+            SecureField("確認密碼", text: $confirmPasswordText)
+            Button("取消", role: .cancel) {
+                privacyEnabled = false
+                passwordText = ""
+                confirmPasswordText = ""
+            }
+            Button("確認") {
+                setPassword()
+            }
+        } message: {
+            Text("請設定密碼以保護您的日記")
+        }
+        .alert("更改密碼", isPresented: $showingChangePasswordAlert) {
+            SecureField("目前密碼", text: $currentPasswordText)
+            SecureField("新密碼", text: $passwordText)
+            SecureField("確認新密碼", text: $confirmPasswordText)
+            Button("取消", role: .cancel) {
+                clearPasswordFields()
+            }
+            Button("更改") {
+                changePassword()
+            }
+        } message: {
+            Text("請輸入目前密碼和新密碼")
+        }
+        .onChange(of: privacyEnabled) { _, newValue in
+            if newValue {
+                if UserDefaults.standard.string(forKey: "appPassword") == nil {
+                    showingPasswordAlert = true
+                }
+            }
+        }
+        .onAppear {
+            loadSettings()
+        }
+        .onChange(of: reminderEnabled) { _, newValue in
+            if newValue {
+                checkNotificationPermission()
+            } else {
+                UserDefaults.standard.set(newValue, forKey: "reminderEnabled")
+                NotificationManager.shared.cancelDailyReminder()
+            }
+        }
+        .onChange(of: reminderTime) { _, newValue in
+            UserDefaults.standard.set(newValue, forKey: "reminderTime")
+            if reminderEnabled {
+                NotificationManager.shared.scheduleDaily(at: newValue, enabled: true)
+            }
+        }
+        .alert("需要通知權限", isPresented: $showingNotificationAlert) {
+            Button("設定") {
+                if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(settingsURL)
+                }
+            }
+            Button("取消", role: .cancel) {
+                reminderEnabled = false
+            }
+        } message: {
+            Text("請到「設定」>「通知」中允許此App發送通知，才能使用每日提醒功能")
         }
     }
     
@@ -265,6 +377,80 @@ struct SettingsView: View {
     private func clearAllData() {
         diaryStore.entries.removeAll()
         diaryStore.saveEntries()
+    }
+    
+    private func loadSettings() {
+        nickname = UserDefaults.standard.string(forKey: "userNickname") ?? "我的日記"
+        privacyEnabled = UserDefaults.standard.string(forKey: "appPassword") != nil
+        reminderEnabled = UserDefaults.standard.bool(forKey: "reminderEnabled")
+        if let reminderHour = UserDefaults.standard.object(forKey: "reminderTime") as? Date {
+            reminderTime = reminderHour
+        }
+        
+        // 如果提醒已啟用，重新設定通知
+        if reminderEnabled {
+            NotificationManager.shared.scheduleDaily(at: reminderTime, enabled: true)
+        }
+    }
+    
+    private func saveNickname() {
+        guard !tempNickname.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+        nickname = tempNickname.trimmingCharacters(in: .whitespacesAndNewlines)
+        UserDefaults.standard.set(nickname, forKey: "userNickname")
+        tempNickname = ""
+    }
+    
+    private func setPassword() {
+        guard !passwordText.isEmpty, passwordText == confirmPasswordText else {
+            privacyEnabled = false
+            passwordText = ""
+            confirmPasswordText = ""
+            return
+        }
+        
+        UserDefaults.standard.set(passwordText, forKey: "appPassword")
+        clearPasswordFields()
+    }
+    
+    private func changePassword() {
+        let savedPassword = UserDefaults.standard.string(forKey: "appPassword")
+        
+        guard currentPasswordText == savedPassword else {
+            clearPasswordFields()
+            return
+        }
+        
+        guard !passwordText.isEmpty, passwordText == confirmPasswordText else {
+            clearPasswordFields()
+            return
+        }
+        
+        UserDefaults.standard.set(passwordText, forKey: "appPassword")
+        clearPasswordFields()
+    }
+    
+    private func clearPasswordFields() {
+        passwordText = ""
+        confirmPasswordText = ""
+        currentPasswordText = ""
+    }
+    
+    private func checkNotificationPermission() {
+        NotificationManager.shared.checkNotificationStatus { status in
+            switch status {
+            case .notDetermined:
+                NotificationManager.shared.requestPermission()
+                UserDefaults.standard.set(true, forKey: "reminderEnabled")
+                NotificationManager.shared.scheduleDaily(at: reminderTime, enabled: true)
+            case .authorized:
+                UserDefaults.standard.set(true, forKey: "reminderEnabled")
+                NotificationManager.shared.scheduleDaily(at: reminderTime, enabled: true)
+            case .denied, .provisional:
+                showingNotificationAlert = true
+            @unknown default:
+                showingNotificationAlert = true
+            }
+        }
     }
 }
 
@@ -383,7 +569,8 @@ struct ExportView: View {
     }
     
     private func generateTextExport() -> String {
-        var content = "我的日記匯出\n"
+        let userNickname = UserDefaults.standard.string(forKey: "userNickname") ?? "我的日記"
+        var content = "\(userNickname)匯出\n"
         content += "匯出時間：\(Date().formatted())\n"
         content += "總日記數：\(diaryStore.entries.count)\n\n"
         content += String(repeating: "=", count: 50) + "\n\n"

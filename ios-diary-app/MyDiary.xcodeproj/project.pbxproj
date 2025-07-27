@@ -19,7 +19,8 @@
 		01234567890123456789012345678919 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01234567890123456789012345678920 /* CalendarView.swift */; };
 		01234567890123456789012345678921 /* DiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01234567890123456789012345678922 /* DiaryDetailView.swift */; };
 		01234567890123456789012345678923 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01234567890123456789012345678924 /* SettingsView.swift */; };
-		01234567890123456789012345678925 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01234567890123456789012345678926 /* Persistence.swift */; };
+		A9323CF12E367F1400690D47 /* PasswordVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9323CF02E367F1400690D47 /* PasswordVerificationView.swift */; };
+		A9323CF32E367F1400690D48 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9323CF22E367F1400690D48 /* NotificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,8 +36,9 @@
 		01234567890123456789012345678920 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		01234567890123456789012345678922 /* DiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailView.swift; sourceTree = "<group>"; };
 		01234567890123456789012345678924 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		01234567890123456789012345678926 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		01234567890123456789012345678927 /* MyDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9323CF02E367F1400690D47 /* PasswordVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordVerificationView.swift; sourceTree = "<group>"; };
+		A9323CF22E367F1400690D48 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +66,6 @@
 				01234567890123456789012345678902 /* MyDiaryApp.swift */,
 				01234567890123456789012345678932 /* Models */,
 				01234567890123456789012345678933 /* Views */,
-				01234567890123456789012345678926 /* Persistence.swift */,
 				01234567890123456789012345678906 /* Assets.xcassets */,
 				01234567890123456789012345678934 /* Preview Content */,
 			);
@@ -84,6 +85,7 @@
 			children = (
 				01234567890123456789012345678910 /* DiaryEntry.swift */,
 				01234567890123456789012345678912 /* DiaryStore.swift */,
+				A9323CF22E367F1400690D48 /* NotificationManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -98,6 +100,7 @@
 				01234567890123456789012345678920 /* CalendarView.swift */,
 				01234567890123456789012345678922 /* DiaryDetailView.swift */,
 				01234567890123456789012345678924 /* SettingsView.swift */,
+				A9323CF02E367F1400690D47 /* PasswordVerificationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -190,7 +193,8 @@
 				01234567890123456789012345678923 /* SettingsView.swift in Sources */,
 				01234567890123456789012345678909 /* DiaryEntry.swift in Sources */,
 				01234567890123456789012345678911 /* DiaryStore.swift in Sources */,
-				01234567890123456789012345678925 /* Persistence.swift in Sources */,
+				A9323CF32E367F1400690D48 /* NotificationManager.swift in Sources */,
+				A9323CF12E367F1400690D47 /* PasswordVerificationView.swift in Sources */,
 				01234567890123456789012345678901 /* MyDiaryApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,7 +332,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "我的日記";
+				INFOPLIST_KEY_CFBundleDisplayName = "氛圍日記";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -362,7 +366,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "我的日記";
+				INFOPLIST_KEY_CFBundleDisplayName = "氛圍日記";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

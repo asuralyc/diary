@@ -3,6 +3,7 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var diaryStore: DiaryStore
     @State private var showingWriteView = false
+    @State private var userNickname = "我的日記"
     
     var body: some View {
         NavigationView {
@@ -11,7 +12,7 @@ struct HomeView: View {
                     // Header
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("我的日記")
+                            Text(userNickname)
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
                             
@@ -27,7 +28,7 @@ struct HomeView: View {
                             .fill(Color.indigo.gradient)
                             .frame(width: 40, height: 40)
                             .overlay {
-                                Text("我")
+                                Text(String(userNickname.prefix(1)))
                                     .font(.headline)
                                     .foregroundColor(.white)
                             }
@@ -70,6 +71,12 @@ struct HomeView: View {
                 .padding(.bottom, 20)
             }
         }
+        .onAppear {
+            loadUserNickname()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)) { _ in
+            loadUserNickname()
+        }
     }
     
     private var dateString: String {
@@ -77,6 +84,10 @@ struct HomeView: View {
         formatter.dateFormat = "EEEE, MMMM d, yyyy"
         formatter.locale = Locale(identifier: "zh_TW")
         return formatter.string(from: Date())
+    }
+    
+    private func loadUserNickname() {
+        userNickname = UserDefaults.standard.string(forKey: "userNickname") ?? "我的日記"
     }
 }
 

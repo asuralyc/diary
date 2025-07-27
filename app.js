@@ -10,15 +10,49 @@ let settings = {
     reminderEnabled: true,
     reminderTime: '21:00',
     privacyEnabled: false,
-    moodAnalysis: true
+    moodAnalysis: true,
+    nickname: '我的日記',
+    password: null
 };
 
 // 初始化應用程式
 document.addEventListener('DOMContentLoaded', function() {
     loadSettings();
+    
+    // 檢查隱私保護
+    if (settings.privacyEnabled && settings.password) {
+        verifyPassword();
+    } else {
+        initializeApp();
+    }
+});
+
+function initializeApp() {
     loadDiaryEntries();
     applyTheme();
-});
+}
+
+function verifyPassword() {
+    const maxAttempts = 3;
+    let attempts = 0;
+    
+    function attemptPassword() {
+        attempts++;
+        const inputPassword = prompt(`請輸入密碼解鎖日記 (嘗試 ${attempts}/${maxAttempts})：`);
+        
+        if (inputPassword === settings.password) {
+            initializeApp();
+        } else if (attempts >= maxAttempts) {
+            alert('密碼錯誤次數過多，無法存取日記');
+            document.body.innerHTML = '<div style="text-align: center; padding: 50px; font-size: 18px;">🔒 日記已鎖定</div>';
+        } else {
+            alert('密碼錯誤，請重試');
+            attemptPassword();
+        }
+    }
+    
+    attemptPassword();
+}
 
 // 本地儲存管理
 function saveDiaryEntries() {
@@ -926,7 +960,20 @@ function loadSettingsUI() {
     document.getElementById('darkModeToggle').checked = settings.darkMode;
     document.getElementById('reminderToggle').checked = settings.reminderEnabled;
     document.getElementById('moodAnalysisToggle').checked = settings.moodAnalysis;
+    document.getElementById('privacyToggle').checked = settings.privacyEnabled;
     document.getElementById('fontSizeSelect').value = settings.fontSize;
+    
+    // 載入暱稱
+    const nicknameElement = document.getElementById('userNickname');
+    if (nicknameElement) {
+        nicknameElement.textContent = settings.nickname;
+    }
+
+    // 顯示/隱藏更改密碼選項
+    const changePasswordItem = document.getElementById('changePasswordItem');
+    if (changePasswordItem) {
+        changePasswordItem.style.display = settings.password ? 'flex' : 'none';
+    }
 
     // 更新主題顏色
     document.querySelectorAll('.color-option').forEach(option => {
@@ -952,6 +999,46 @@ function setupSettingsHandlers() {
     document.getElementById('moodAnalysisToggle').addEventListener('change', function() {
         settings.moodAnalysis = this.checked;
         saveSettings();
+    });
+
+    // 隱私保護切換
+    document.getElementById('privacyToggle').addEventListener('change', function() {
+        if (this.checked) {
+            // 啟用隱私保護時，需要設定密碼
+            if (!settings.password) {
+                const password = prompt('請設定密碼保護您的日記：');
+                if (password && password.trim()) {
+                    settings.password = password.trim();
+                    settings.privacyEnabled = true;
+                    saveSettings();
+                    alert('密碼設定成功！');
+                    // 顯示更改密碼選項
+                    document.getElementById('changePasswordItem').style.display = 'flex';
+                } else {
+                    this.checked = false; // 取消勾選
+                    alert('未設定密碼，隱私保護功能未啟用');
+                }
+            } else {
+                settings.privacyEnabled = true;
+                saveSettings();
+            }
+        } else {
+            // 停用隱私保護時需要驗證密碼
+            if (settings.password) {
+                const inputPassword = prompt('請輸入密碼以停用隱私保護：');
+                if (inputPassword === settings.password) {
+                    settings.privacyEnabled = false;
+                    saveSettings();
+                    alert('隱私保護已停用');
+                } else {
+                    this.checked = true; // 保持勾選
+                    alert('密碼錯誤');
+                }
+            } else {
+                settings.privacyEnabled = false;
+                saveSettings();
+            }
+        }
     });
 
     // 字體大小
@@ -1000,16 +1087,104 @@ function applyTheme() {
 
 // 設定功能函數
 function editNickname() {
-    const newNickname = prompt('輸入新的暱稱:', settings.nickname || '我的日記');
-    if (newNickname && newNickname.trim()) {
-        settings.nickname = newNickname.trim();
-        document.getElementById('userNickname').textContent = settings.nickname;
+    const nicknameDisplay = document.getElementById('userNickname');
+    const nicknameInput = document.getElementById('nicknameInput');
+    const nicknameBtn = document.getElementById('nicknameBtn');
+    
+    if (nicknameInput.style.display === 'none') {
+        // 進入編輯模式
+        nicknameDisplay.style.display = 'none';
+        nicknameInput.style.display = 'block';
+        nicknameInput.value = settings.nickname;
+        nicknameInput.focus();
+        nicknameBtn.textContent = '儲存';
+        
+        // 監聽 Enter 鍵和 Escape 鍵
+        const handleKeyPress = (e) => {
+            if (e.key === 'Enter') {
+                saveNickname();
+            } else if (e.key === 'Escape') {
+                cancelNicknameEdit();
+            }
+        };
+        
+        nicknameInput.addEventListener('keydown', handleKeyPress);
+        nicknameInput.handleKeyPress = handleKeyPress; // 保存引用以便移除
+    } else {
+        // 儲存編輯
+        saveNickname();
+    }
+}
+
+function saveNickname() {
+    const nicknameDisplay = document.getElementById('userNickname');
+    const nicknameInput = document.getElementById('nicknameInput');
+    const nicknameBtn = document.getElementById('nicknameBtn');
+    
+    const newNickname = nicknameInput.value.trim();
+    if (newNickname) {
+        settings.nickname = newNickname;
+        nicknameDisplay.textContent = settings.nickname;
         saveSettings();
+    }
+    
+    // 退出編輯模式
+    exitNicknameEditMode();
+}
+
+function cancelNicknameEdit() {
+    const nicknameInput = document.getElementById('nicknameInput');
+    nicknameInput.value = settings.nickname; // 恢復原值
+    exitNicknameEditMode();
+}
+
+function exitNicknameEditMode() {
+    const nicknameDisplay = document.getElementById('userNickname');
+    const nicknameInput = document.getElementById('nicknameInput');
+    const nicknameBtn = document.getElementById('nicknameBtn');
+    
+    nicknameDisplay.style.display = 'block';
+    nicknameInput.style.display = 'none';
+    nicknameBtn.textContent = '編輯';
+    
+    // 移除事件監聽器
+    if (nicknameInput.handleKeyPress) {
+        nicknameInput.removeEventListener('keydown', nicknameInput.handleKeyPress);
+        delete nicknameInput.handleKeyPress;
     }
 }
 
 function changeAvatar() {
     alert('頭像更換功能開發中');
+}
+
+function changePassword() {
+    if (!settings.password) {
+        alert('尚未設定密碼');
+        return;
+    }
+    
+    const currentPassword = prompt('請輸入目前的密碼：');
+    if (currentPassword !== settings.password) {
+        alert('目前密碼錯誤');
+        return;
+    }
+    
+    const newPassword = prompt('請輸入新密碼：');
+    if (!newPassword || !newPassword.trim()) {
+        alert('新密碼不能為空');
+        return;
+    }
+    
+    const confirmPassword = prompt('請再次輸入新密碼：');
+    if (newPassword !== confirmPassword) {
+        alert('兩次輸入的密碼不一致');
+        return;
+    }
+    
+    settings.password = newPassword.trim();
+    saveSettings();
+    alert('密碼已成功更改！');
 }
 
 function setReminderTime() {
@@ -1098,9 +1273,6 @@ function showHelp() {
     alert('使用說明功能開發中');
 }
 
-function sendFeedback() {
-    alert('意見回饋功能開發中');
-}
 
 // 通用功能
 function viewEntry(entryId) {

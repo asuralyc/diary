@@ -6,6 +6,7 @@ struct DiaryListView: View {
     @State private var selectedFilter: FilterOption = .all
     @State private var selectedMoodFilter: Mood? = nil
     @State private var showingWriteView = false
+    @State private var userNickname = "我的日記"
     
     enum FilterOption: String, CaseIterable {
         case all = "全部"
@@ -84,7 +85,7 @@ struct DiaryListView: View {
                 
                 Spacer()
             }
-            .navigationTitle("我的日記")
+            .navigationTitle(userNickname)
             .searchable(text: $searchText, prompt: "搜尋日記內容、標題或標籤...")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -99,6 +100,12 @@ struct DiaryListView: View {
             .sheet(isPresented: $showingWriteView) {
                 WriteEntryView()
             }
+            .onAppear {
+                loadUserNickname()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)) { _ in
+                loadUserNickname()
+            }
         }
     }
     
@@ -107,6 +114,10 @@ struct DiaryListView: View {
             let entry = filteredEntries[index]
             diaryStore.deleteEntry(entry)
         }
+    }
+    
+    private func loadUserNickname() {
+        userNickname = UserDefaults.standard.string(forKey: "userNickname") ?? "我的日記"
     }
 }
 

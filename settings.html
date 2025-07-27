@@ -23,8 +23,9 @@
                     <div class="setting-content">
                         <div class="setting-title">暱稱</div>
                         <div class="setting-subtitle" id="userNickname">我的日記</div>
+                        <input type="text" id="nicknameInput" class="nickname-input" style="display: none;" placeholder="輸入暱稱">
                     </div>
-                    <button class="setting-action" onclick="editNickname()">編輯</button>
+                    <button class="setting-action" id="nicknameBtn" onclick="editNickname()">編輯</button>
                 </div>
                 <div class="setting-item">
                     <div class="setting-icon">🎨</div>
@@ -49,6 +50,14 @@
                         <input type="checkbox" id="privacyToggle">
                         <span class="slider"></span>
                     </label>
+                </div>
+                <div class="setting-item" id="changePasswordItem" style="display: none;">
+                    <div class="setting-icon">🔑</div>
+                    <div class="setting-content">
+                        <div class="setting-title">更改密碼</div>
+                        <div class="setting-subtitle">修改現有密碼</div>
+                    </div>
+                    <button class="setting-action" onclick="changePassword()">更改</button>
                 </div>
                 <div class="setting-item">
                     <div class="setting-icon">📅</div>
@@ -171,14 +180,6 @@
                         <div class="setting-subtitle">了解如何使用</div>
                     </div>
                     <button class="setting-action" onclick="showHelp()">查看</button>
-                </div>
-                <div class="setting-item">
-                    <div class="setting-icon">💌</div>
-                    <div class="setting-content">
-                        <div class="setting-title">意見回饋</div>
-                        <div class="setting-subtitle">告訴我們你的想法</div>
-                    </div>
-                    <button class="setting-action" onclick="sendFeedback()">反饋</button>
                 </div>
             </section>
         </main>

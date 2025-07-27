@@ -307,7 +307,16 @@ struct FlowResult {
 
 #Preview {
     NavigationView {
-        DiaryDetailView(entry: DiaryEntry.sampleData[0])
-            .environmentObject(DiaryStore())
+        DiaryDetailView(entry: DiaryEntry(
+            date: Date(),
+            title: "預覽日記",
+            content: "這是一個預覽用的日記內容",
+            mood: .happy,
+            weather: .sunny,
+            tags: ["預覽"],
+            createdAt: Date(),
+            modifiedAt: Date()
+        ))
+        .environmentObject(DiaryStore())
     }
 }
