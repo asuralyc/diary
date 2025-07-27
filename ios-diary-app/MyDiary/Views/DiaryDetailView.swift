@@ -263,7 +263,11 @@ struct FlowLayout: Layout {
         )
         
         for (index, subview) in subviews.enumerated() {
-            subview.place(at: result.frames[index].origin + bounds.origin, proposal: .unspecified)
+            let origin = CGPoint(
+                x: result.frames[index].origin.x + bounds.origin.x,
+                y: result.frames[index].origin.y + bounds.origin.y
+            )
+            subview.place(at: origin, proposal: .unspecified)
         }
     }
 }
@@ -303,7 +307,16 @@ struct FlowResult {
 
 #Preview {
     NavigationView {
-        DiaryDetailView(entry: DiaryEntry.sampleData[0])
-            .environmentObject(DiaryStore())
+        DiaryDetailView(entry: DiaryEntry(
+            date: Date(),
+            title: "預覽日記",
+            content: "這是一個預覽用的日記內容",
+            mood: .happy,
+            weather: .sunny,
+            tags: ["預覽"],
+            createdAt: Date(),
+            modifiedAt: Date()
+        ))
+        .environmentObject(DiaryStore())
     }
 }

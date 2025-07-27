@@ -30,9 +30,8 @@ class DiaryStore: ObservableObject {
             let data = try Data(contentsOf: dataURL)
             entries = try JSONDecoder().decode([DiaryEntry].self, from: data)
         } catch {
-            // If file doesn't exist or there's an error, load sample data
-            entries = DiaryEntry.sampleData
-            saveEntries()
+            // If file doesn't exist or there's an error, start with empty array
+            entries = []
         }
     }
     

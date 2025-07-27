@@ -321,7 +321,7 @@ struct MonthStatistics: View {
             let previousDate = sortedDates[i - 1]
             let currentDate = sortedDates[i]
             
-            if Calendar.current.dateInterval(from: previousDate, to: currentDate)?.duration == 86400 {
+            if Calendar.current.dateComponents([.day], from: previousDate, to: currentDate).day == 1 {
                 currentStreak += 1
                 maxStreak = max(maxStreak, currentStreak)
             } else {
